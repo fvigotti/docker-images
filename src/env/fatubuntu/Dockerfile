@@ -21,6 +21,8 @@ RUN curl -sSL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz | tar -v -C /us
     cd /usr/src/go/src && ./make.bash --no-clean 2>&1 && \
     mkdir -p /go/src /go/bin && chmod -R 777 /go
 
+RUN useradd -u 500 core
+
 ENV PATH /usr/src/go/bin:$PATH
 ENV GOPATH /go
 ENV PATH /go/bin:$PATH
