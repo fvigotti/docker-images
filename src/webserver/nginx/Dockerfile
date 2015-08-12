@@ -13,7 +13,8 @@ RUN export NGINX_VERSION=$(curl --silent "http://nginx.org/packages/mainline/ubu
 
 # delete conf.d/default.conf && prepare base dirs structure
 RUN rm -rf /etc/nginx/*.d && \
-	mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d
+	mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d && \
+	mkdir -p /data/http/ /data/logs/ /data/config/
 
 # add /etc/nginx configuration, but do not overwrite existing default nginx configuration (Exception for /etc/nginx/nginx.conf )
 ADD etc /etc
@@ -31,4 +32,4 @@ VOLUME ["/var/log/nginx/"]
 # EXPOSE 80 443
 
 ENTRYPOINT ["nginx"]
-CMD ["-g", "daemon off;"]
+# CMD ["-g", "daemon off;"]
