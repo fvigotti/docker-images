@@ -8,8 +8,8 @@ stop_and_delete_container(){
 }
 
 export ROOT_PATH_DISTANCE='../../../'
-export BASE_IMAGE_PATH='src/env/fatubuntu-bashsupervisor/'
-export IMAGE_NAME='env-fatubuntu-bashsupervisor'
+export BASE_IMAGE_PATH='src/env/fatubuntu-supervisord/'
+export IMAGE_NAME='env-fatubuntu-supervisord'
 
 export OUTPUT_IMAGENAME="fvigotti/${IMAGE_NAME}"
 
@@ -22,20 +22,18 @@ echo 'PROJECT_ROOT = '$PROJECT_ROOT
 export ABSOLUTE_IMAGE_PATH=$(readlink -e "${PROJECT_ROOT}/${BASE_IMAGE_PATH}/")'/'
 echo 'ABSOLUTE_IMAGE_PATH = '$ABSOLUTE_IMAGE_PATH
 
-export TEST_TEMP_DIR="/tmp/docker/${IMAGE_NAME}/"
-echo 'TEST_TEMP_DIR= '$TEST_TEMP_DIR
-mkdir -p $TEST_TEMP_DIR
-
 
 export TEST_CONTAINER_NAME='test_'${IMAGE_NAME}
 
 cd $PROJECT_ROOT
 
+
+export TEST_TEMP_DIR="/tmp/docker/${IMAGE_NAME}/"
+echo 'TEST_TEMP_DIR= '$TEST_TEMP_DIR
+mkdir -p $TEST_TEMP_DIR
 echo 'copying test files into temp destination >> '$TEST_TEMP_DIR
 # --delete-after
 rsync -acv  "${TEST_CURRENT_DIR}/data/" "${TEST_TEMP_DIR}/"
-
-chmod +x ${TEST_TEMP_DIR}/config/*
 chmod +x ${TEST_TEMP_DIR}/app/*
 
 docker build -t "${OUTPUT_IMAGENAME}" $ABSOLUTE_IMAGE_PATH
@@ -49,8 +47,8 @@ echo '##########################################################################
 echo 'starting container in interactive mode, press CTRL+C and see that the main app should receive termination signal!'
 
 docker run ${DOCKER_DAEMON_OPTIONS} --name ${TEST_CONTAINER_NAME} \
--v "${TEST_TEMP_DIR}/"config/init20-launch-app.sh:/config/init20-launch-app.sh   \
 -v "${TEST_TEMP_DIR}/"app:/app   \
+-v "${TEST_TEMP_DIR}/"supervisor/app1.conf:/etc/supervisor/conf.d/app1.conf   \
 --env "DEBUG=1"  \
 "${OUTPUT_IMAGENAME}"
 
