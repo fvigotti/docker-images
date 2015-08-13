@@ -6,4 +6,3 @@ RUN apt-get update && \
 RUN rm -rf /etc/nginx/addon.d /etc/php5/fpm/pool.d && \
 	mkdir -p /etc/nginx/addon.d /etc/php5/fpm/pool.d
 ADD etc /etc
-ADD supervisord.conf /etc/supervisor/conf.d/php-fpm.conf
