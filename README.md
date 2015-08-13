@@ -13,4 +13,5 @@
     - `tests/webserver/nginx/test.sh`  
         start webserver with default configuration and curl some test files
 
-
+# credits and inspirations:
+- https://github.com/maxexcloo/Docker
