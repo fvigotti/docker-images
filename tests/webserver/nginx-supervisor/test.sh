@@ -48,7 +48,7 @@ rsync -acv  $TEST_CURRENT_DIR/data/ "${TEST_TEMP_DIR}/"
 export NGINX_HTTP_PORT=80
 export PROXYED_HTTP_PORT=18089
 export DOCKER_DAEMON_OPTIONS="-d"
-# export DOCKER_DAEMON_OPTIONS="--rm -ti"
+#export DOCKER_DAEMON_OPTIONS="--rm -ti"
 
 
 stop_and_delete_container $TEST_CONTAINER_NAME
