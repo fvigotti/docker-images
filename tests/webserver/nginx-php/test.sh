@@ -74,9 +74,10 @@ echo 'TEST_RESULTS_secondpage = '$TEST_RESULTS_secondpage
 TEST_RESULTS_phpinfo=$(curl --silent "http://127.0.0.1:${PROXYED_HTTP_PORT}/info.php" )
 echo 'TEST_RESULTS_phpinfo = '$TEST_RESULTS_phpinfo
 
-exit 0;
 
 stop_and_delete_container $TEST_CONTAINER_NAME
+
+exit 0;
 
 
 
