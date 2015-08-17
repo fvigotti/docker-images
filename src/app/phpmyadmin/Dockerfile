@@ -9,7 +9,8 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmi
  && tar -xvjf /phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2 -C / \
  && rm /phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2  \
  && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/http/ \
- && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/pma/
+ && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/pma/ \
+ && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /pma/
 
 RUN  ls -laR /data/http/
 RUN  ls -laR /data/
