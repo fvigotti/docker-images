@@ -10,12 +10,8 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmi
  && rm /phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2  \
  && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/http/
 
-# && mv /phpMyAdmin-${PHPMYADMIN_VERSION}-english /var/pma/ && ls -laR /var/pma/
-# && rm -r /data/http \
-
 RUN  ls -laR /data/http/
 RUN  ls -laR /data/
-
 
 # add phpmyadmin setup file
 ADD config/* /config/
