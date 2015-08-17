@@ -170,6 +170,13 @@ else
 fi
 
 
+[[ "$PMA_CONFIG_AUTO" = "false" ]] && {
+
+echo ' autoconfiguration of /data/config.inc.php disabled'
+
+} || {
+
+echo 'applying configuration'
 cp /data/config.inc.php $PMA_BASEPATH
 
 sed -i \
@@ -180,3 +187,4 @@ sed -i \
     -e "s|\$MYSQL_PORT_3306_TCP_ADDR|$MYSQL_PORT_3306_TCP_ADDR|g" \
     -e "s|\$MYSQL_PORT_3306_TCP_PORT|$MYSQL_PORT_3306_TCP_PORT|g" \
     $PMA_BASEPATH/config.inc.php
+}

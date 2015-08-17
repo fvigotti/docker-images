@@ -90,19 +90,11 @@ docker run ${DOCKER_DAEMON_OPTIONS} --name ${TEST_CONTAINER_NAME} \
 #-p ${PROXYED_HTTP_PORT}:${PROXYED_HTTP_PORT} \
 
 sleep 2;
-TEST_RESULTS=$(curl --silent "http://127.0.0.1:${PROXYED_HTTP_PORT}" )
 
-echo 'TEST_RESULTS = '$TEST_RESULTS
-
-TEST_RESULTS_secondpage=$(curl --silent "http://127.0.0.1:${PROXYED_HTTP_PORT}/secondPage.html" )
-echo 'TEST_RESULTS_secondpage = '$TEST_RESULTS_secondpage
-
-TEST_RESULTS_phpinfo=$(curl --silent "http://127.0.0.1:${PROXYED_HTTP_PORT}/info.php" )
-echo 'TEST_RESULTS_phpinfo = '$TEST_RESULTS_phpinfo
 
 
 stop_and_delete_container $TEST_CONTAINER_NAME
-#stop_mysql
+stop_mysql
 
 exit 0;
 

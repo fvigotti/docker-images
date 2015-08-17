@@ -19,15 +19,3 @@ RUN rm -rf /etc/nginx/*.d && \
 # add /etc/nginx configuration, but do not overwrite existing default nginx configuration (Exception for /etc/nginx/nginx.conf )
 ADD etc /etc
 
-#VOLUME ["/etc/nginx"]
-
-# datafiles in : /data/http/
-# logs in : /data/logs/
-# plugin conf in : /data/config/nginx-*.conf
-#VOLUME ["/data"]
-
-#VOLUME ["/var/cache/nginx"]
-#VOLUME ["/var/log/nginx/"]
-
-# EXPOSE 80 443
-
