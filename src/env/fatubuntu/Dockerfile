@@ -2,6 +2,8 @@ FROM ubuntu:14.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV TERM xterm
+
 RUN apt-get -y update && \
     apt-get -y --quiet upgrade && \
     apt-get -y --quiet install libxml2-dev libxslt1-dev git python python-setuptools python-dev build-essential libz-dev lsb openssl dnsutils curl rsync iptraf-ng rdiff ethtool iotop libtool pv curl unzip zip inotify-tools && \

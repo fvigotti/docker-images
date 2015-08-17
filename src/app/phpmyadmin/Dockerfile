@@ -2,6 +2,7 @@ FROM fvigotti/webserver-nginx-php
 
 ENV PHPMYADMIN_VERSION 4.4.13.1
 
+
 RUN whoami
 
 
