@@ -8,7 +8,8 @@ RUN whoami
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2 \
  && tar -xvjf /phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2 -C / \
  && rm /phpMyAdmin-${PHPMYADMIN_VERSION}-english.tar.bz2  \
- && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/http/
+ && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/http/ \
+ && rsync -a /phpMyAdmin-${PHPMYADMIN_VERSION}-english/ /data/pma/
 
 RUN  ls -laR /data/http/
 RUN  ls -laR /data/
