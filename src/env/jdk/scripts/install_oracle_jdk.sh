@@ -3,11 +3,10 @@
 set -x
 
 # PROVIDED VARS
-
 JDK_LOCAL_DESTINATION=${JDK_LOCAL_DESTINATION-"/usr/java/src/"}
-TGZ_SOURCES_path=${TGZ_SOURCES_path-"http://download.oracle.com/otn-pub/java/jdk/8u45-b14/"}
-TGZ_SOURCES_filename=${TGZ_SOURCES_filename-"jdk-8u45-linux-x64.tar.gz"}
-JDK_EXPECTED_MD5="1ad9a5be748fb75b31cd3bd3aa339cac"
+TGZ_SOURCES_path=${TGZ_SOURCES_path-"http://download.oracle.com/otn-pub/java/jdk/8u51-b16/"}
+TGZ_SOURCES_filename=${TGZ_SOURCES_filename-"jdk-8u51-linux-x64.tar.gz"}
+JDK_EXPECTED_MD5="b34ff02c5d98b6f372288c17e96c51cf"
 
 # derived values
 JDK_VERSION=$(echo $TGZ_SOURCES_filename | sed 's/\(jdk-\)\([^\-]*\)-\(.*\)/\2/')
