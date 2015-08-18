@@ -11,10 +11,12 @@ rebuild_env(){
 docker rmi -f fvigotti/env-fatubuntu || echo error ignored
 docker rmi -f fvigotti/env-fatubuntu-supervisord  || echo error ignored
 docker rmi -f fvigotti/env-fatubuntu-bashsupervisor  || echo error ignored
+docker rmi -f fvigotti/env-jdk  || echo error ignored
 
 docker build -t "fvigotti/env-fatubuntu" $PROJECT_ROOT/src/env/fatubuntu
 docker build -t "fvigotti/env-fatubuntu-supervisord" $PROJECT_ROOT/src/env/fatubuntu-supervisord
 docker build -t "fvigotti/env-fatubuntu-bashsupervisor" $PROJECT_ROOT/src/env/fatubuntu-bashsupervisor
+docker build -t "fvigotti/env-jdk" $PROJECT_ROOT/src/env/jdk
 }
 
 rebuild_webserver(){
