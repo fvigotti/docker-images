@@ -41,7 +41,14 @@ docker rmi -f fvigotti/app-phpmyadmin  || echo error ignored
 docker build -t "fvigotti/app-phpmyadmin" $PROJECT_ROOT/src/app/phpmyadmin
 }
 
-#rebuild_env
+delete_all_stored_images(){
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+}
+
+rebuild_env
 rebuild_webserver
 rebuild_db
 rebuild_app
