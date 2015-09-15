@@ -9,11 +9,11 @@ See:
 
 Example:
 ```bash
-$ docker run -e SCHEDULE="@every 10s" -e COMMAND="echo hello" fvigotti/env-crontab
+$ docker run -e SCHEDULE="@every 10s" -e COMMAND="echo hello" fvigotti/env-gocrontab
 
 
 # or override bash script execution 
-$ docker run fvigotti/env-crontab go-cron -s "@every 5s" -- /bin/bash -c "chmod +x /app/app1.sh && exec /app/app1.sh"
+$ docker run fvigotti/env-gocrontab go-cron -s "@every 5s" -- /bin/bash -c "chmod +x /app/app1.sh && exec /app/app1.sh"
 
 
 ```
