@@ -10,9 +10,10 @@ RUN mkdir /grafana && \
 EXPOSE 3000
 
 #grafana workdir is necessary in current beta ( bug in grafana return : [setting.go:280 initLogging()] [E] Unknown log mode: console )
-WORKDIR /opt/grafana/current
+WORKDIR /usr/share/grafana
 
-ENTRYPOINT ["/opt/grafana/current/grafana"]
+
+ENTRYPOINT ["/usr/sbin/grafana-server"]
 CMD ["--config=/etc/grafana/grafana.ini", "web"]
 
 
