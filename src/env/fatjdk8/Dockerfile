@@ -1,7 +1,7 @@
 FROM fvigotti/env-fatubuntu
 
 RUN cd /usr/local/src && \
-    git clone https://github.com/fvigotti/bash-ubuntu-oraclejdk && \
+    git clone --depth 1 https://github.com/fvigotti/bash-ubuntu-oraclejdk && \
     chmod +x /usr/local/src/bash-ubuntu-oraclejdk/src/install_oracle_jdk.sh && \
     chmod +x /usr/local/src/bash-ubuntu-oraclejdk/src/install_groovy.sh && \
     /bin/bash /usr/local/src/bash-ubuntu-oraclejdk/src/install_oracle_jdk.sh && \
