@@ -10,7 +10,8 @@ ENV NGINX_DIST trusty
 ENV NGINX_ARCHITECTURE amd64
 
 ################ THIS VERSION WILL BE INSTALLED
-ENV NGINX_VERSION 1.9.5-1~trusty
+#ENV NGINX_VERSION 1.9.5-1~trusty
+ENV NGINX_VERSION 1.9.9-1~trusty
 ################ JUST TO KNOW..., CHECK WHAT IS LATEST VESION AVAILABLE
 RUN export NGINX_LATEST_AVAILABLE_VERSION=$(curl --silent "http://nginx.org/packages/mainline/ubuntu/dists/${NGINX_DIST}/nginx/binary-${NGINX_ARCHITECTURE}/Packages" |  grep -A 1 -e 'Package: nginx$' | grep -e  '^Version:' | sed 's/^Version: //')
 
