@@ -38,7 +38,7 @@ docker build -t "fvigotti/db-mariadb" $PROJECT_ROOT/src/db/mariadb
 rebuild_app(){
 docker rmi -f fvigotti/app-phpmyadmin  || echo error ignored
 
-docker build -t "fvigotti/app-phpmyadmin" $PROJECT_ROOT/src/app/phpmyadmin
+docker build -t "fvigotti/app-phpmyadmin" $PROJECT_ROOT/src/app/phpmyadmin/src
 }
 
 delete_all_stored_images(){

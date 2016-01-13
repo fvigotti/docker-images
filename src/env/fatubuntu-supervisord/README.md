@@ -8,3 +8,6 @@ also a back structure for app initialization is required and fvigotti/env-fatubu
 provide that already  
   
 
+# entry points : 
+## inherited from bash  supervisor
+all bash script found in /config will be executed 

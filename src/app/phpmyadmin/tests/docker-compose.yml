@@ -1,0 +1,18 @@
+mysql:
+  image: mariadb
+  environment:
+    - "MYSQL_ROOT_PASSWORD=pp"
+pma:
+  build: ../src/
+  links:
+    - mysql
+  ports:
+    - 10005:80
+  environment:
+    - "MYSQL_USERNAME=root"
+    - "MYSQL_PASSWORD=pp"
+    - "PMA_USERNAME=a"
+    - "PMA_PASSWORD=b"
+    - "PMA_SECRET=ccc"
+    - "DEBUG=1"
+    - "PMA_AUTHTYPE=config"

@@ -6,8 +6,10 @@ fi
 
 echo ' performing setup of phpmyadmin if necessary'
 export PMA_DBNAME=${PMA_DBNAME:-phpmyadmin}
+export PMA_DBNAME=${PMA_DBNAME:-phpmyadmin}
 export PMA_GRANT_USER_FILEPATH="/data/grant_user.sql"
 export PMA_BASEPATH="/data/http/"
+export PMA_AUTHTYPE=${PMA_AUTHTYPE:-cookie}
 export PMA_INITIALIZE_DB_FILEPATH="${PMA_BASEPATH}/sql/create_tables.sql"
 
 function myecho {
@@ -29,7 +31,7 @@ wait_for_mysql_to_start_useTcp() {
     USER=$1
     PASS=$2
     TIMEOUT_SECONDS=${3:-10}
-    echo 'wait_for_mysql_to_start , TIMEOUT='${TIMEOUT_SECONDS}
+    echo 'wait_for_mysql_to_start (using tcp connection) , TIMEOUT='${TIMEOUT_SECONDS}
     let loopTimeOut=$(date +%s)+${TIMEOUT_SECONDS}
     export wait_mysql_up_status="0";
     #mysqladmin -u root -p status
@@ -101,7 +103,7 @@ mysql --host=$MYSQL_PORT_3306_TCP_ADDR --port=$MYSQL_PORT_3306_TCP_PORT  -u$USER
 export CONFIGURED_ADMIN_CREDENTIALS=false
 echo "checking provided user credentials ..."
 if [ ! -z $MYSQL_USERNAME ] && [ ! -z $MYSQL_PASSWORD ]; then
-    myecho 'CONFIGURED_ADMIN_CREDENTIALS :  user = '${MYSQL_USERNAME}' pass = '${MYSQL_PASSWORD}
+    myecho 'CONFIGURED_ADMIN_CREDENTIALS :  MYSQL_USERNAME = '${MYSQL_USERNAME}' MYSQL_PASSWORD  = '${MYSQL_PASSWORD}
     export CONFIGURED_ADMIN_CREDENTIALS=true
     #if test_user_and_pass $MYSQL_USERNAME $MYSQL_PASSWORD ; then
     #   export CONFIGURED_ADMIN_CREDENTIALS=true
@@ -123,19 +125,20 @@ fi
 # SETUP CONFIGURATION CHECK
 if [ "${CONFIGURED_ADMIN_CREDENTIALS}" = true ]; then
 
-
+    echo 'VALIDATING MYSQL CREDENTIALS WITH PMA DATABASE'
     if ! test_db $MYSQL_USERNAME $MYSQL_PASSWORD  $PMA_DBNAME ; then
-        myecho '[test_db] opening pma database with admin credentials  '$MYSQL_USERNAME' '${PMA_PASSWORD}' has failed!'
+        myecho '[test_db] opening pma database with mysql credentials  '$MYSQL_USERNAME' '${MYSQL_PASSWORD}' has failed!, so PMA database (which probably doesn''t exists) will be imported now..'
 
         if import_db_dump  $MYSQL_USERNAME $MYSQL_PASSWORD $PMA_INITIALIZE_DB_FILEPATH; then
             echo "SUCCESS! DATABASE FOR PMA INITIALIZED!"
         else
             myecho 'ERROR IMPORTING DATABASE DUMP' $MYSQL_USERNAME $MYSQL_PASSWORD $PMA_INITIALIZE_DB_FILEPATH
-            echo "FATAL ERROR! INITIALIZATION OF PMA DATABASE FAILED!"
+            echo "FATAL ERROR! INITIALIZATION OF PMA DATABASE FAILED!, "
             exit 1
         fi
     fi # end PMA database initialization
 
+    echo 'VALIDATING PMA CREDENTIALS WITH PMA DATABASE'
     if ! test_user_and_pass $PMA_USERNAME $PMA_PASSWORD ; then
         echo "admin mode on, creating PMA Account"
 
@@ -156,6 +159,7 @@ if [ "${CONFIGURED_ADMIN_CREDENTIALS}" = true ]; then
 
 fi
 
+echo 'VALIDATING PMA CREDENTIALS WITH PMA DATABASE'
 if test_user_and_pass $PMA_USERNAME $PMA_PASSWORD ; then
     echo 'db credentials are ok!'
     if test_db $PMA_USERNAME $PMA_PASSWORD $PMA_DBNAME ; then
@@ -186,5 +190,8 @@ sed -i \
     -e "s|\$PMA_URI|$PMA_URI|g" \
     -e "s|\$MYSQL_PORT_3306_TCP_ADDR|$MYSQL_PORT_3306_TCP_ADDR|g" \
     -e "s|\$MYSQL_PORT_3306_TCP_PORT|$MYSQL_PORT_3306_TCP_PORT|g" \
+    -e "s|\$PMA_AUTHTYPE|$PMA_AUTHTYPE|g" \
+    -e "s|\$MYSQL_USERNAME|$MYSQL_USERNAME|g" \
+    -e "s|\$MYSQL_PASSWORD|$MYSQL_PASSWORD|g" \
     $PMA_BASEPATH/config.inc.php
 }
