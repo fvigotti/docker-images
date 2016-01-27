@@ -2,6 +2,7 @@ mysql:
   image: mariadb
   environment:
     - "MYSQL_ROOT_PASSWORD=pp"
+
 pma:
   build: ../src/
   links:
