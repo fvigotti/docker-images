@@ -7,4 +7,5 @@ RUN pip install --upgrade pip && \
 
 ADD s_.sh /usr/bin/s_
 ADD safeDelete_.sh /usr/bin/safeDelete_
+RUN chmod +x /usr/bin/s_ /usr/bin/safeDelete_
 # pip install  libffi-dev libssl-dev     pyopenssl ndg-httpsclient pyasn1  && \
