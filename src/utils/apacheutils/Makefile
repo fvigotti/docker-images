@@ -1,4 +1,4 @@
-NAME = fvigotti/webserver-nginx-consultpl
+NAME = fvigotti/utils-apacheutils
 VERSION = latest
 
 # sample : https://github.com/phusion/baseimage-docker/blob/master/Makefile

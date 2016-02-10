@@ -20,6 +20,7 @@ RUN git reset --hard v$VERSION
 RUN make updatedeps || /bin/true
 RUN make dev
 
+ADD etc /imported-etc
+RUN rsync /imported-etc/ /etc/
 
-ADD etc /etc
 ENTRYPOINT supervisord -n
