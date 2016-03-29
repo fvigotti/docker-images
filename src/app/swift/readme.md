@@ -23,4 +23,10 @@ execute swift command (it will only append the env variables to swift cli to avo
 # safeDelete_ command helper
 execute swift delete of the given file, avoiding the deletion of directories, inexistent files, files different from octet-stream type
 
+## swift commands (https://swiftstack.com/docs/integration/python-swiftclient.html) :
+ - list # list all containers
+ - list <container_name>
+ - stat <container_name>
+ 
+
   

@@ -1,4 +1,4 @@
-FROM fvigotti/env-fatubuntu
+  FROM fvigotti/env-fatubuntu
 
 RUN apt-get install libffi-dev
 RUN pip install --upgrade pip && \

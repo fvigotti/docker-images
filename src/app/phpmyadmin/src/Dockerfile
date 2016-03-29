@@ -1,6 +1,7 @@
 FROM fvigotti/webserver-nginx-php
 
-ENV PHPMYADMIN_VERSION 4.5.3.1
+#ENV PHPMYADMIN_VERSION 4.5.3.1
+ENV PHPMYADMIN_VERSION 4.6.0
 
 
 RUN whoami

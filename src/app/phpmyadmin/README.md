@@ -19,6 +19,7 @@ all bash script found in /config will be executed
 - DEBUG : if set, will enable move verbose output ( also with passwords ) 
 - MYSQL_PORT_3306_TCP_ADDR="127.0.0.1"  
 - MYSQL_PORT_3306_TCP_PORT="3306"  
+- PATCH_CONFIGURATION="true" > phpmyadmin is patched from file located here -> /config.patch.php ( nb: file should start with `?><?php` )  
  
 # not yet implemented correctly:
 - PMA_DBNAME 

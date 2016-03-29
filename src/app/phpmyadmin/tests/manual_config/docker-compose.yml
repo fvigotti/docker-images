@@ -1,0 +1,30 @@
+mysqlA:
+  image: mariadb
+  environment:
+    - "MYSQL_ROOT_PASSWORD=pp"
+mysqlB:
+  image: mariadb
+  environment:
+    - "MYSQL_ROOT_PASSWORD=p2"
+
+pma:
+#  build: ../../src/
+  image: fvigotti/app-phpmyadmin
+  volumes:
+    - ./config_custom.php:/config.patch.php:ro
+#    - ./config.inc.php:/data/http/config.inc.php:ro
+  links:
+    - mysqlA:mysqlA
+    - mysqlB:mysqlB
+  ports:
+    - 10045:80
+  environment:
+    - "PATCH_CONFIGURATION=true"
+    - "DEBUG=1"
+    #- "MANUALLY_CONFIGURED_PMA=true"
+    #- "MYSQL_USERNAME=root"
+    #- "MYSQL_PASSWORD=pp"
+    #- "PMA_USERNAME=a"
+    #- "PMA_PASSWORD=b"
+    #- "PMA_SECRET=ccc"
+    #- "PMA_AUTHTYPE=config"

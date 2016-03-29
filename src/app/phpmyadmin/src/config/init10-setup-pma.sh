@@ -1,14 +1,34 @@
 #!/bin/bash
 
+export PMA_BASEPATH="/data/http/"
+
 if [ ! -z "$DEBUG" ]; then
     set -x
 fi
+
+if [ ! -z "$MANUALLY_CONFIGURED_PMA" ]; then
+  exit 0
+fi
+
+echo "testing PATCH_CONFIGURATION = $PATCH_CONFIGURATION "
+if [ ! -z "${PATCH_CONFIGURATION}" ]; then
+  PATCH_FILE_LOCATION="/config.patch.php"
+  [ -f $PATCH_FILE_LOCATION ] || {
+    echo 'patch file location not found > '$PATCH_FILE_LOCATION
+    exit 1
+  }
+  cp /data/config.inc.php $PMA_BASEPATH
+  CONFIG_LOCATION="${PMA_BASEPATH}/config.inc.php"
+  echo "" >> $CONFIG_LOCATION
+  cat $PATCH_FILE_LOCATION"" >> $CONFIG_LOCATION
+  exit 0
+fi
+
 
 echo ' performing setup of phpmyadmin if necessary'
 export PMA_DBNAME=${PMA_DBNAME:-phpmyadmin}
 export PMA_DBNAME=${PMA_DBNAME:-phpmyadmin}
 export PMA_GRANT_USER_FILEPATH="/data/grant_user.sql"
-export PMA_BASEPATH="/data/http/"
 export PMA_AUTHTYPE=${PMA_AUTHTYPE:-cookie}
 export PMA_INITIALIZE_DB_FILEPATH="${PMA_BASEPATH}/sql/create_tables.sql"
 
@@ -187,11 +207,11 @@ sed -i \
     -e "s|\$PMA_SECRET|$PMA_SECRET|g" \
     -e "s|\$PMA_USERNAME|$PMA_USERNAME|g" \
     -e "s|\$PMA_PASSWORD|$PMA_PASSWORD|g" \
-    -e "s|\$PMA_URI|$PMA_URI|g" \
     -e "s|\$MYSQL_PORT_3306_TCP_ADDR|$MYSQL_PORT_3306_TCP_ADDR|g" \
     -e "s|\$MYSQL_PORT_3306_TCP_PORT|$MYSQL_PORT_3306_TCP_PORT|g" \
     -e "s|\$PMA_AUTHTYPE|$PMA_AUTHTYPE|g" \
     -e "s|\$MYSQL_USERNAME|$MYSQL_USERNAME|g" \
     -e "s|\$MYSQL_PASSWORD|$MYSQL_PASSWORD|g" \
     $PMA_BASEPATH/config.inc.php
+#    -e "s|\$PMA_URI|$PMA_URI|g" \ disabled since php 4.6.0
 }
