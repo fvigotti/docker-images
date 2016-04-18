@@ -1,32 +1,19 @@
 FROM fvigotti/env-fatubuntu
 
-RUN cd /usr/local/src && \
-    git clone --depth 1 https://github.com/fvigotti/bash-ubuntu-oraclejdk && \
-    chmod +x /usr/local/src/bash-ubuntu-oraclejdk/src/install_oracle_jdk.sh && \
-    chmod +x /usr/local/src/bash-ubuntu-oraclejdk/src/install_groovy.sh && \
-    /bin/bash /usr/local/src/bash-ubuntu-oraclejdk/src/install_oracle_jdk.sh && \
-    /bin/bash /usr/local/src/bash-ubuntu-oraclejdk/src/install_groovy.sh
+ENV JDK_VERSION 8u77
+ENV BNUMBER b03
 
-
-ENV SCALA_VERSION 2.11.6
-ENV SBT_VERSION 0.13.8
-
-# Install Scala
-RUN \
-  cd /root && \
-  curl -o scala-$SCALA_VERSION.tgz http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz && \
-  tar -xf scala-$SCALA_VERSION.tgz && \
-  rm scala-$SCALA_VERSION.tgz && \
-  echo >> /root/.bashrc && \
-  echo 'export PATH=~/scala-$SCALA_VERSION/bin:$PATH' >> /root/.bashrc
-
-# Install sbt
-RUN \
-  curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
-  dpkg -i sbt-$SBT_VERSION.deb && \
-  rm sbt-$SBT_VERSION.deb && \
-  apt-get update && \
-  apt-get install sbt
+RUN apt-get update \
+    && apt-get install -y wget openssl ca-certificates \
+    && cd /tmp \
+    && wget -qO jdk8.tar.gz \
+       --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+       http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}-${BNUMBER}/jdk-${JDK_VERSION}-linux-x64.tar.gz \
+    && tar xzf jdk8.tar.gz -C /opt \
+    && mv /opt/jdk* /opt/java \
+    && rm /tmp/jdk8.tar.gz \
+    && update-alternatives --install /usr/bin/java java /opt/java/bin/java 100 \
+    && update-alternatives --install /usr/bin/javac javac /opt/java/bin/javac 100
 
 # Define working directory
 WORKDIR /root
