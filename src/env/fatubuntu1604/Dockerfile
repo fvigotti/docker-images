@@ -11,22 +11,9 @@ RUN apt-get -y update && \
     easy_install pip && \
     pip --no-input install envtpl && \
     apt-get -y update && \
-    apt-get -y clean && \
-    npm install -g wait-for-mongo && \
-    npm install -g http-server
-
-# GO FROM OFFICIAL REPO : https://registry.hub.docker.com/_/golang/
-
-ENV GOLANG_VERSION 1.7.1
-
-RUN curl -sSL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz | tar -v -C /usr/src -xz && \
-    cd /usr/src/go/src && ./make.bash --no-clean 2>&1 && \
-    mkdir -p /go/src /go/bin && chmod -R 777 /go
+    apt-get -y clean
 
 RUN useradd -u 500 core
 
-ENV PATH /usr/src/go/bin:$PATH
-ENV GOPATH /go
-ENV PATH /go/bin:$PATH
 
 
