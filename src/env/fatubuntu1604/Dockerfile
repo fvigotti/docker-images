@@ -17,7 +17,7 @@ RUN apt-get -y update && \
 
 # GO FROM OFFICIAL REPO : https://registry.hub.docker.com/_/golang/
 
-ENV GOLANG_VERSION 1.4.2
+ENV GOLANG_VERSION 1.7.1
 
 RUN curl -sSL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz | tar -v -C /usr/src -xz && \
     cd /usr/src/go/src && ./make.bash --no-clean 2>&1 && \
